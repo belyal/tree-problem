@@ -52,4 +52,16 @@ public class LeafTest {
         Leaf<Integer> b2 = new Leaf<>(13);
         assertTrue(b1.compareTo(b2) == 0);
     }
+
+    @Test
+    public void leavesChainBuilderShouldCreateChainOfLeavesInOrderOfAddingLeaves() throws Exception {
+        Leaf<Integer> leaf = Leaf.<Integer>getChainBuilder()
+                .addLeaf(new Leaf<>(2))
+                .addLeaf(new Leaf<>(4))
+                .addLeaf(new Leaf<>(3))
+                .addLeaf(new Leaf<>(1))
+                .build();
+        assertEquals("2 -> 4 -> 3 -> 1 -> null", leaf.toString());
+    }
+
 }

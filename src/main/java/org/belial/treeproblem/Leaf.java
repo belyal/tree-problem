@@ -40,4 +40,30 @@ public class Leaf<T extends Comparable<T>> implements Comparable<Leaf<T>> {
     public String toString() {
         return value + " -> " + next;
     }
+
+    public static <T extends Comparable<T>> ChainBuilder<T> getChainBuilder() {
+        return new ChainBuilder<>();
+    }
+
+    /**
+     * Builder class that simplifies the creation of chain of leaves.
+     */
+    static class ChainBuilder<T extends Comparable<T>> {
+        private Leaf<T> first;
+        private Leaf<T> last;
+
+        public ChainBuilder<T> addLeaf(Leaf<T> leaf) {
+            if (last == null) {
+                first = last = leaf;
+            } else {
+                last.setNext(leaf);
+                last = leaf;
+            }
+            return this;
+        }
+
+        public Leaf<T> build() {
+            return first;
+        }
+    }
 }
