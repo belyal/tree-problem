@@ -28,15 +28,28 @@ public class LeafTest {
 
     @Test
     public void singleLeafShouldPrintItsValue() throws Exception {
-        Leaf<Integer> b1 = new Leaf<>(1, null);
+        Leaf<Integer> b1 = new Leaf<>(1);
         assertEquals("1 -> null", b1.toString());
     }
 
     @Test
     public void chainOfLeavesShouldPrintTheirValues() throws Exception {
-        Leaf<Integer> b1 = new Leaf<>(1, null);
+        Leaf<Integer> b1 = new Leaf<>(1);
         Leaf<Integer> b3 = new Leaf<>(3, b1);
         assertEquals("3 -> 1 -> null", b3.toString());
     }
 
+    @Test
+    public void leavesShouldBeComparable() throws Exception {
+        Leaf<Integer> b5 = new Leaf<>(5);
+        Leaf<Integer> b3 = new Leaf<>(3, b5);
+        assertTrue(b5.compareTo(b3) > 0);
+    }
+
+    @Test
+    public void oneLeafShouldEqualToOtherIfTheyHaveTheSameValue() throws Exception {
+        Leaf<Integer> b1 = new Leaf<>(13);
+        Leaf<Integer> b2 = new Leaf<>(13);
+        assertTrue(b1.compareTo(b2) == 0);
+    }
 }

@@ -6,7 +6,7 @@ package org.belial.treeproblem;
  *
  * @param <T> the type of value in this leaf
  */
-public class Leaf<T extends Comparable<T>> {
+public class Leaf<T extends Comparable<T>> implements Comparable<Leaf<T>> {
     private final T value;
     private Leaf<T> next;
 
@@ -29,6 +29,11 @@ public class Leaf<T extends Comparable<T>> {
 
     public void setNext(Leaf<T> next) {
         this.next = next;
+    }
+
+    @Override
+    public int compareTo(Leaf<T> other) {
+        return getValue().compareTo(other.getValue());
     }
 
     @Override
