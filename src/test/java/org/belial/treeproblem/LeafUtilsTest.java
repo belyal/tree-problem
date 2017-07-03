@@ -2,7 +2,10 @@ package org.belial.treeproblem;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class LeafUtilsTest {
 
@@ -78,4 +81,44 @@ public class LeafUtilsTest {
         Leaf sorted = LeafUtils.sort(leaf);
         assertEquals("7 -> 7 -> 7 -> 7 -> 7 -> null", sorted.toString());
     }
+
+    @Test
+    public void partitionOfChainOfLeaveShouldReturnListWithTwoElements() throws Exception {
+        Leaf leaf = Leaf.getChainBuilder()
+                .addLeaf(new Leaf(1))
+                .addLeaf(new Leaf(2))
+                .addLeaf(new Leaf(3))
+                .addLeaf(new Leaf(4))
+                .build();
+        List<Leaf> partition = LeafUtils.partition(leaf, 3);
+        assertEquals("1 -> 2 -> null", partition.get(0).toString());
+        assertEquals("3 -> 4 -> null", partition.get(1).toString());
+    }
+
+    @Test
+    public void partitionOfChainOfLeaveShouldReturnListWithSecondElementIsNullIfSumLessThatMaxWeight() throws Exception {
+        Leaf leaf = Leaf.getChainBuilder()
+                .addLeaf(new Leaf(1))
+                .addLeaf(new Leaf(2))
+                .addLeaf(new Leaf(3))
+                .addLeaf(new Leaf(4))
+                .build();
+        List<Leaf> partition = LeafUtils.partition(leaf, 10);
+        assertEquals("1 -> 2 -> 3 -> 4 -> null", partition.get(0).toString());
+        assertNull(partition.get(1));
+    }
+
+    @Test
+    public void partitionOfChainOfLeaveShouldReturnListWithFirstElementIsNullIfWeightFirstElementMoreThatMaxWeight() throws Exception {
+        Leaf leaf = Leaf.getChainBuilder()
+                .addLeaf(new Leaf(5))
+                .addLeaf(new Leaf(6))
+                .addLeaf(new Leaf(7))
+                .addLeaf(new Leaf(9))
+                .build();
+        List<Leaf> partition = LeafUtils.partition(leaf, 4);
+        assertNull(partition.get(0));
+        assertEquals("5 -> 6 -> 7 -> 9 -> null", partition.get(1).toString());
+    }
+
 }

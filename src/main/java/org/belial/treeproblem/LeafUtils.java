@@ -1,5 +1,7 @@
 package org.belial.treeproblem;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -76,6 +78,34 @@ public class LeafUtils {
         return currItem != null ? currItem.leaf : null;
     }
 
+    /**
+     * The method splits the chain of leaves into two parts. The sum of weights of the first part does not
+     * exceed the given {@code maxTotalWeight}, the second part has the rest.
+     * @param leaf chain of leaves
+     * @param maxTotalWeight the max value of total weight
+     * @return List of two leaf elements
+     */
+    public static List<Leaf> partition(Leaf leaf, int maxTotalWeight) {
+        Leaf first = null;
+        Leaf last = null;
+        int sum = 0;
+        while (leaf != null && sum + leaf.getWeight() <= maxTotalWeight) {
+            if (first == null) {
+                first = leaf;
+            }
+            sum += leaf.getWeight();
+            last = leaf;
+            leaf = leaf.getNext();
+        }
+        if (last != null) {
+            last.setNext(null);
+        }
+        return Arrays.asList(first, leaf);
+    }
+
+    /**
+     * Private class that represents the stack item which is used in the {@link #sort} method.
+     */
     private static class SortStackItem {
         final int level;
         final Leaf leaf;
