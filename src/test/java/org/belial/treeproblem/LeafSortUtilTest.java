@@ -30,4 +30,52 @@ public class LeafSortUtilTest {
         assertEquals("4 -> 8 -> 9 -> 21 -> 30 -> 33 -> null", union.toString());
     }
 
+    @Test
+    public void sortOfSingleLeafShouldReturnThisLeaf() throws Exception {
+        Leaf<Integer> leaf = new Leaf<>(5);
+        assertEquals("5 -> null", leaf.toString());
+        Leaf<Integer> sorted = LeafSortUtil.sort(leaf);
+        assertEquals("5 -> null", sorted.toString());
+    }
+
+    @Test
+    public void sortChainOfFourLeavesShouldReturnSortedChainOfLeaves() throws Exception {
+        Leaf<Integer> leaf = Leaf.<Integer>getChainBuilder()
+                .addLeaf(new Leaf<>(2))
+                .addLeaf(new Leaf<>(4))
+                .addLeaf(new Leaf<>(3))
+                .addLeaf(new Leaf<>(1))
+                .build();
+        assertEquals("2 -> 4 -> 3 -> 1 -> null", leaf.toString());
+        Leaf<Integer> sorted = LeafSortUtil.sort(leaf);
+        assertEquals("1 -> 2 -> 3 -> 4 -> null", sorted.toString());
+    }
+
+    @Test
+    public void sortChainOfFiveLeavesShouldReturnSortedChainOfLeaves() throws Exception {
+        Leaf<Integer> leaf = Leaf.<Integer>getChainBuilder()
+                .addLeaf(new Leaf<>(2))
+                .addLeaf(new Leaf<>(4))
+                .addLeaf(new Leaf<>(3))
+                .addLeaf(new Leaf<>(6))
+                .addLeaf(new Leaf<>(1))
+                .build();
+        assertEquals("2 -> 4 -> 3 -> 6 -> 1 -> null", leaf.toString());
+        Leaf<Integer> sorted = LeafSortUtil.sort(leaf);
+        assertEquals("1 -> 2 -> 3 -> 4 -> 6 -> null", sorted.toString());
+    }
+
+    @Test
+    public void sortChainOfIdenticalLeavesShouldReturnTheSameChain() throws Exception {
+        Leaf<Integer> leaf = Leaf.<Integer>getChainBuilder()
+                .addLeaf(new Leaf<>(7))
+                .addLeaf(new Leaf<>(7))
+                .addLeaf(new Leaf<>(7))
+                .addLeaf(new Leaf<>(7))
+                .addLeaf(new Leaf<>(7))
+                .build();
+        assertEquals("7 -> 7 -> 7 -> 7 -> 7 -> null", leaf.toString());
+        Leaf<Integer> sorted = LeafSortUtil.sort(leaf);
+        assertEquals("7 -> 7 -> 7 -> 7 -> 7 -> null", sorted.toString());
+    }
 }
