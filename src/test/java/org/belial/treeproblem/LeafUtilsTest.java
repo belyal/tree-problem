@@ -4,13 +4,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class LeafSortUtilTest {
+public class LeafUtilsTest {
 
     @Test
     public void unionOfTwoChainOfSortedLeavesShouldReturnOneChainOfSortedLeaves() throws Exception {
         Leaf leaf1 = new Leaf(4, new Leaf(6, new Leaf(9)));
         Leaf leaf2 = new Leaf(1, new Leaf(3, new Leaf(8)));
-        Leaf union = LeafSortUtil.unionSorted(leaf1, leaf2);
+        Leaf union = LeafUtils.unionSorted(leaf1, leaf2);
         assertEquals("1 -> 3 -> 4 -> 6 -> 8 -> 9 -> null", union.toString());
     }
 
@@ -18,7 +18,7 @@ public class LeafSortUtilTest {
     public void unionOneChainOfLeavesWithSingleLeafShouldReturnTheSortedLeavesWithThisLeafInIt() throws Exception {
         Leaf leaf1 = new Leaf(1, new Leaf(3, new Leaf(4)));
         Leaf leaf2 = new Leaf(3);
-        Leaf union = LeafSortUtil.unionSorted(leaf1, leaf2);
+        Leaf union = LeafUtils.unionSorted(leaf1, leaf2);
         assertEquals("1 -> 3 -> 3 -> 4 -> null", union.toString());
     }
 
@@ -26,7 +26,7 @@ public class LeafSortUtilTest {
     public void unionOfTwoChainOfSortedLeavesThatHaveDifferentValuesShouldReturnChainOfSortedLeaves() throws Exception {
         Leaf leaf1 = new Leaf(4, new Leaf(8, new Leaf(9)));
         Leaf leaf2 = new Leaf(21, new Leaf(30, new Leaf(33)));
-        Leaf union = LeafSortUtil.unionSorted(leaf1, leaf2);
+        Leaf union = LeafUtils.unionSorted(leaf1, leaf2);
         assertEquals("4 -> 8 -> 9 -> 21 -> 30 -> 33 -> null", union.toString());
     }
 
@@ -34,7 +34,7 @@ public class LeafSortUtilTest {
     public void sortOfSingleLeafShouldReturnThisLeaf() throws Exception {
         Leaf leaf = new Leaf(5);
         assertEquals("5 -> null", leaf.toString());
-        Leaf sorted = LeafSortUtil.sort(leaf);
+        Leaf sorted = LeafUtils.sort(leaf);
         assertEquals("5 -> null", sorted.toString());
     }
 
@@ -47,7 +47,7 @@ public class LeafSortUtilTest {
                 .addLeaf(new Leaf(1))
                 .build();
         assertEquals("2 -> 4 -> 3 -> 1 -> null", leaf.toString());
-        Leaf sorted = LeafSortUtil.sort(leaf);
+        Leaf sorted = LeafUtils.sort(leaf);
         assertEquals("1 -> 2 -> 3 -> 4 -> null", sorted.toString());
     }
 
@@ -61,7 +61,7 @@ public class LeafSortUtilTest {
                 .addLeaf(new Leaf(1))
                 .build();
         assertEquals("2 -> 4 -> 3 -> 6 -> 1 -> null", leaf.toString());
-        Leaf sorted = LeafSortUtil.sort(leaf);
+        Leaf sorted = LeafUtils.sort(leaf);
         assertEquals("1 -> 2 -> 3 -> 4 -> 6 -> null", sorted.toString());
     }
 
@@ -75,7 +75,7 @@ public class LeafSortUtilTest {
                 .addLeaf(new Leaf(7))
                 .build();
         assertEquals("7 -> 7 -> 7 -> 7 -> 7 -> null", leaf.toString());
-        Leaf sorted = LeafSortUtil.sort(leaf);
+        Leaf sorted = LeafUtils.sort(leaf);
         assertEquals("7 -> 7 -> 7 -> 7 -> 7 -> null", sorted.toString());
     }
 }

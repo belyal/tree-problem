@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * Class that is used to sort the linked list of Leaf objects.
  */
-public class LeafSortUtil {
+public class LeafUtils {
 
     /**
      * The method returns one combined sorted chain of leaves from two sorted chains of leaves.
