@@ -3,56 +3,54 @@ package org.belial.treeproblem;
 /**
  * The Leaf represents the content of a node.
  * <p>It has a pointer to the next leaf (pointer can be {@code null} if it is a terminal leaf).</p>
- *
- * @param <T> the type of value in this leaf
  */
-public class Leaf<T extends Comparable<T>> implements Comparable<Leaf<T>> {
-    private final T value;
-    private Leaf<T> next;
+public class Leaf implements Comparable<Leaf> {
+    private final int weight;
+    private Leaf next;
 
-    public Leaf(T value) {
-        this(value, null);
+    public Leaf(int weight) {
+        this(weight, null);
     }
 
-    public Leaf(T value, Leaf<T> next) {
-        this.value = value;
+    public Leaf(int weight, Leaf next) {
+        this.weight = weight;
         this.next = next;
     }
 
-    public T getValue() {
-        return value;
+    public int getWeight() {
+        return weight;
     }
 
-    public Leaf<T> getNext() {
+    public Leaf getNext() {
         return next;
     }
 
-    public void setNext(Leaf<T> next) {
+    public void setNext(Leaf next) {
         this.next = next;
     }
 
     @Override
-    public int compareTo(Leaf<T> other) {
-        return getValue().compareTo(other.getValue());
+    public int compareTo(Leaf other) {
+        return Integer.compare(weight, other.getWeight());
     }
 
     @Override
     public String toString() {
-        return value + " -> " + next;
+        return weight + " -> " + next;
     }
 
-    public static <T extends Comparable<T>> ChainBuilder<T> getChainBuilder() {
-        return new ChainBuilder<>();
+    public static ChainBuilder getChainBuilder() {
+        return new ChainBuilder();
     }
 
     /**
      * Builder class that simplifies the creation of chain of leaves.
      */
-    static class ChainBuilder<T extends Comparable<T>> {
-        private Leaf<T> first;
-        private Leaf<T> last;
+    static class ChainBuilder {
+        private Leaf first;
+        private Leaf last;
 
-        public ChainBuilder<T> addLeaf(Leaf<T> leaf) {
+        public ChainBuilder addLeaf(Leaf leaf) {
             if (last == null) {
                 first = last = leaf;
             } else {
@@ -62,7 +60,7 @@ public class Leaf<T extends Comparable<T>> implements Comparable<Leaf<T>> {
             return this;
         }
 
-        public Leaf<T> build() {
+        public Leaf build() {
             return first;
         }
     }
