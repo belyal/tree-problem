@@ -18,3 +18,26 @@ Additional Requirements
 * Project on BitBucket or GitHub
 * Demonstration of using GitFlow workflow
 * Code is covered by tests.
+
+How to use it
+-------------
+```java
+// create a tree node with three child
+TreeNode treeNode = new TreeNode("root");
+treeNode.addChild(new TreeNode("a1"));
+treeNode.addChild(new TreeNode("a2"));
+treeNode.addChild(new TreeNode("a3"));
+
+// create and set the chain of leaves
+Leaf leaf = Leaf.<Integer>getChainBuilder()
+        .addLeaf(new Leaf(2))
+        .addLeaf(new Leaf(4))
+        .addLeaf(new Leaf(3))
+        .addLeaf(new Leaf(1))
+        .build();
+treeNode.setLeaves(leaf);
+
+// create the TreeProblem object and solve it
+TreeProblem problem = new TreeProblem();
+problem.solve(treeNode, 3);
+```
